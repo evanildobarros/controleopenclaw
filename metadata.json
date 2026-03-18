@@ -1,0 +1,5 @@
+{
+  "name": "OpenClaw Controller",
+  "description": "App intuitivo para controle e monitoramento de agentes OpenClaw (Fred, Vitor, Kewin, Mary, Tamy).",
+  "requestFramePermissions": []
+}

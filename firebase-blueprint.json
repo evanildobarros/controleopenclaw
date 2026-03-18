@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the OpenClaw Controller app.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Agent": {
+      "title": "Agent",
+      "description": "An OpenClaw agent controlled by a user.",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string", "description": "The UID of the user who owns this agent." },
+        "name": { "type": "string", "description": "The name of the agent (e.g., Fred, Vitor)." },
+        "role": { "type": "string", "description": "The role of the agent (e.g., main, worker)." },
+        "status": { "type": "string", "enum": ["idle", "working", "offline", "error"] },
+        "currentTask": { "type": "string", "description": "The description of the current task." },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "name", "role", "status", "updatedAt"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A task assigned to an agent.",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string", "description": "The UID of the user who created this task." },
+        "agentId": { "type": "string", "description": "The ID of the agent assigned to this task." },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "in-progress", "completed", "failed"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "agentId", "description", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles."
+    },
+    "/agents/{agentId}": {
+      "schema": { "$ref": "#/entities/Agent" },
+      "description": "Stores agents belonging to users."
+    },
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "Stores tasks assigned to agents."
+    }
+  }
+}
