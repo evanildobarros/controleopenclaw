@@ -239,6 +239,22 @@ function App() {
               </div>
             </div>
 
+            {/* Nova seção para estatísticas resumidas dos agentes */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
+                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Total Ativos</p>
+                    <p className="text-2xl font-semibold text-white">{agents.length}</p>
+                </div>
+                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
+                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Em Execução</p>
+                    <p className="text-2xl font-semibold text-emerald-400">{agents.filter(a => a.status === 'working').length}</p>
+                </div>
+                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
+                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Ociosos</p>
+                    <p className="text-2xl font-semibold text-zinc-400">{agents.filter(a => a.status === 'idle').length}</p>
+                </div>
+            </div>
+
             {agentsLoading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[1, 2, 3, 4, 5].map(i => (
