@@ -264,8 +264,8 @@ function App() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {agents.map(agent => {
-                  const displayName = agent.id === 'fred' ? 'Fred' : agent.name;
-                  const displayRole = agent.id === 'fred' ? 'Mestre Orquestrador e Mentor Pessoal' : agent.role;
+                  const displayName = agent.id.includes('fred') ? 'Fred' : agent.name;
+                  const displayRole = agent.id.includes('fred') ? 'Mestre Orquestrador e Mentor Pessoal' : agent.role;
                   return (
                   <div 
                     key={agent.id} 
@@ -276,7 +276,7 @@ function App() {
                       <div>
                         <h3 className="text-lg font-medium flex items-center gap-2 text-white">
                           {displayName}
-                          {agent.id === 'mary' && ( 
+                          {agent.id.includes('mary') && ( 
                             <span className="text-[10px] uppercase tracking-wider bg-emerald-primary/10 text-emerald-primary px-2 py-0.5 rounded-full font-mono border border-emerald-primary/20">
                               MAIN
                             </span>
