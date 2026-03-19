@@ -263,7 +263,10 @@ function App() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {agents.map(agent => (
+                {agents.map(agent => {
+                  const displayName = agent.id === 'fred' ? 'Fred' : agent.name;
+                  const displayRole = agent.id === 'fred' ? 'Mestre Orquestrador e Mentor Pessoal' : agent.role;
+                  return (
                   <div 
                     key={agent.id} 
                     className={`bg-surface-base rounded-2xl border ${agent.status === 'working' ? 'border-emerald-primary/30 shadow-[0_0_20px_rgba(4,185,131,0.05)]' : 'border-white/5'} p-5 hover:border-white/10 transition-colors group relative overflow-hidden`}
@@ -272,14 +275,14 @@ function App() {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className="text-lg font-medium flex items-center gap-2 text-white">
-                          {agent.name}
-                          {agent.name === 'Mary' && ( 
+                          {displayName}
+                          {agent.id === 'mary' && ( 
                             <span className="text-[10px] uppercase tracking-wider bg-emerald-primary/10 text-emerald-primary px-2 py-0.5 rounded-full font-mono border border-emerald-primary/20">
                               MAIN
                             </span>
                           )}
                         </h3>
-                        <p className="text-sm text-text-muted font-mono mt-1">{agent.role}</p>
+                        <p className="text-sm text-text-muted font-mono mt-1">{displayRole}</p>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className={`relative flex h-2.5 w-2.5 ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-700'} rounded-full`}>
