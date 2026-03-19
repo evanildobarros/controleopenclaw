@@ -1,0 +1,17 @@
+/* Arquivo de configuração do tema escuro para a aplicação de controle */
+.dark .bg-background {
+  background-color: var(--background-dark);
+}
+.dark .bg-surface {
+  background-color: var(--surface-dark);
+}
+.dark .text-text {
+  color: var(--text-light);
+}
+
+/* Mapeamento de cores para o tema escuro */
+.dark {
+  --background-dark: #121212;
+  --surface-dark: #1E1E1E;
+  --text-light: #E0E0E0;
+}
