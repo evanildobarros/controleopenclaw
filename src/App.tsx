@@ -316,6 +316,7 @@ function App() {
                         Atribuir Tarefa
                       </button>
                     </div>
+                  </div>
                   );
                 })}
               </div>
