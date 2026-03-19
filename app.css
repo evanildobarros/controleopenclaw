@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Configurações globais para forçar o modo claro e a fonte Roboto */
+:root {
+  --color-bg: #FFFFFF;
+  --color-surface: #F8F8F8;
+  --color-text: #212529;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Aplica cores de superfície a elementos que devem ter fundo de cartão */
+/* Onde o Tailwind não for aplicado diretamente nos componentes */
+.card-bg {
+  background-color: var(--color-surface) !important;
+}
+
