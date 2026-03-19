@@ -1,42 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth, signInWithGoogle, logout, db } from './firebase';
+import { db } from './firebase';
 import { useAgents } from './hooks/useAgents';
 import { useTasks } from './hooks/useTasks';
-import { Activity, CheckCircle2, CircleDashed, LogOut, Plus, User as UserIcon, XCircle, Clock, PlayCircle } from 'lucide-react';
+import { Activity, CheckCircle2, CircleDashed, LogOut, Plus, User as UserIcon, XCircle, Clock, PlayCircle, Lock } from 'lucide-react';
 import { collection, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 
+const FIXED_UID = 'evanildo_admin_001';
+const CREDENTIALS = {
+  username: 'evanildobarros',
+  password: 'jedai2003'
+};
+
 function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [authReady, setAuthReady] = useState(false);
-  const { agents, loading: agentsLoading } = useAgents(user?.uid);
-  const { tasks } = useTasks(user?.uid);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('openclaw_auth') === 'true');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  
+  const { agents, loading: agentsLoading } = useAgents(isLoggedIn ? FIXED_UID : undefined);
+  const { tasks } = useTasks(isLoggedIn ? FIXED_UID : undefined);
   const [selectedAgent, setSelectedAgent] = useState<any | null>(null);
   const [taskDescription, setTaskDescription] = useState('');
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setAuthReady(true);
-    });
-    return () => unsubscribe();
-  }, []);
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+      setIsLoggedIn(true);
+      localStorage.setItem('openclaw_auth', 'true');
+      setLoginError('');
+    } else {
+      setLoginError('Usuário ou senha incorretos.');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('openclaw_auth');
+    setUsername('');
+    setPassword('');
+  };
 
   const handleAssignTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !selectedAgent || !taskDescription.trim()) return;
+    if (!isLoggedIn || !selectedAgent || !taskDescription.trim()) return;
 
     try {
-      // Create task
       await addDoc(collection(db, 'tasks'), {
-        ownerId: user.uid,
+        ownerId: FIXED_UID,
         agentId: selectedAgent.id,
         description: taskDescription,
         status: 'pending',
         createdAt: serverTimestamp(),
       });
 
-      // Update agent status
       await updateDoc(doc(db, 'agents', selectedAgent.id), {
         status: 'working',
         currentTask: taskDescription,
@@ -47,7 +63,7 @@ function App() {
       setSelectedAgent(null);
     } catch (error) {
       console.error("Error assigning task:", error);
-      alert("Failed to assign task.");
+      alert("Falha ao atribuir tarefa. Verifique as permissões do banco de dados.");
     }
   };
 
@@ -67,30 +83,53 @@ function App() {
     }
   };
 
-  if (!authReady) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white">
-        <Activity className="animate-spin text-emerald-500 w-8 h-8" />
-      </div>
-    );
-  }
-
-  if (!user) {
+  if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center text-white p-4">
-        <div className="max-w-md w-full bg-[#141414] p-8 rounded-2xl border border-white/10 shadow-2xl text-center">
+        <div className="max-w-md w-full bg-[#141414] p-8 rounded-2xl border border-white/10 shadow-2xl">
           <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <Activity className="w-8 h-8 text-emerald-500" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">OpenClaw Controller</h1>
-          <p className="text-zinc-400 mb-8">Autentique-se para gerenciar seus agentes OpenClaw.</p>
-          <button
-            onClick={signInWithGoogle}
-            className="w-full bg-white text-black font-medium py-3 px-4 rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
-          >
-            <UserIcon className="w-5 h-5" />
-            Entrar com Google
-          </button>
+          <h1 className="text-3xl font-bold tracking-tight mb-2 text-center">OpenClaw Controller</h1>
+          <p className="text-zinc-400 mb-8 text-center">Acesse com suas credenciais de administrador.</p>
+          
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-zinc-400 mb-1">Usuário</label>
+              <div className="relative">
+                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full bg-black/50 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  placeholder="Seu usuário"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-zinc-400 mb-1">Senha</label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-black/50 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  placeholder="Sua senha"
+                  required
+                />
+              </div>
+            </div>
+            {loginError && <p className="text-red-500 text-xs text-center">{loginError}</p>}
+            <button
+              type="submit"
+              className="w-full bg-emerald-500 text-black font-bold py-3 px-4 rounded-xl hover:bg-emerald-400 transition-colors mt-4"
+            >
+              Entrar no Sistema
+            </button>
+          </form>
         </div>
       </div>
     );
@@ -109,11 +148,13 @@ function App() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-zinc-400">
-              <img src={user.photoURL || ''} alt="" className="w-8 h-8 rounded-full border border-white/10" />
-              <span className="hidden sm:inline">{user.displayName}</span>
+              <div className="w-8 h-8 rounded-full border border-white/10 bg-emerald-500/10 flex items-center justify-center">
+                <UserIcon className="w-4 h-4 text-emerald-500" />
+              </div>
+              <span className="hidden sm:inline">evanildobarros</span>
             </div>
             <button
-              onClick={logout}
+              onClick={handleLogout}
               className="p-2 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
               title="Sair"
             >

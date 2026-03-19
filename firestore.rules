@@ -40,19 +40,19 @@ service cloud.firestore {
     // Helper Functions
     // ===============================================================
     function isAuthenticated() {
-      return request.auth != null;
+      return true; // Bypassing Firebase Auth as requested
     }
 
     function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
+      return userId == 'evanildo_admin_001';
     }
 
     function isDocOwner() {
-      return isAuthenticated() && request.auth.uid == resource.data.ownerId;
+      return resource.data.ownerId == 'evanildo_admin_001';
     }
 
     function isRequestOwner() {
-      return isAuthenticated() && request.auth.uid == request.resource.data.ownerId;
+      return request.resource.data.ownerId == 'evanildo_admin_001';
     }
 
     function hasRequiredFields(fields) {
@@ -73,7 +73,7 @@ service cloud.firestore {
     function isValidUser() {
       return hasOnlyAllowedFields(['uid', 'email', 'displayName', 'photoURL', 'createdAt']) &&
              hasRequiredFields(['uid', 'email', 'createdAt']) &&
-             request.resource.data.uid == request.auth.uid &&
+             request.resource.data.uid == 'evanildo_admin_001' &&
              request.resource.data.email is string &&
              request.resource.data.createdAt is timestamp &&
              (!('displayName' in request.resource.data) || (request.resource.data.displayName is string && request.resource.data.displayName.size() <= 100)) &&
@@ -83,7 +83,7 @@ service cloud.firestore {
     function isValidAgent() {
       return hasOnlyAllowedFields(['ownerId', 'name', 'role', 'status', 'currentTask', 'updatedAt']) &&
              hasRequiredFields(['ownerId', 'name', 'role', 'status', 'updatedAt']) &&
-             request.resource.data.ownerId == request.auth.uid &&
+             request.resource.data.ownerId == 'evanildo_admin_001' &&
              request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 50 &&
              request.resource.data.role is string && request.resource.data.role.size() > 0 && request.resource.data.role.size() <= 50 &&
              request.resource.data.status in ['idle', 'working', 'offline', 'error'] &&
@@ -94,7 +94,7 @@ service cloud.firestore {
     function isValidTask() {
       return hasOnlyAllowedFields(['ownerId', 'agentId', 'description', 'status', 'createdAt', 'completedAt']) &&
              hasRequiredFields(['ownerId', 'agentId', 'description', 'status', 'createdAt']) &&
-             request.resource.data.ownerId == request.auth.uid &&
+             request.resource.data.ownerId == 'evanildo_admin_001' &&
              request.resource.data.agentId is string && request.resource.data.agentId.size() > 0 && request.resource.data.agentId.size() <= 100 &&
              request.resource.data.description is string && request.resource.data.description.size() > 0 && request.resource.data.description.size() <= 1000 &&
              request.resource.data.status in ['pending', 'in-progress', 'completed', 'failed'] &&
