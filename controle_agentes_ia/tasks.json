@@ -1,0 +1,57 @@
+[
+  {
+    "id": "agent_mary",
+    "title": "Mary (ESG & Dev Coordinator)",
+    "description": "Primary agent for ESG data, development structure, and coordination.",
+    "status": "Completed",
+    "assignedAgent": "Mary",
+    "subtasks": [],
+    "createdAt": "2026-03-18T12:00:00Z",
+    "updatedAt": "2026-03-18T12:00:00Z",
+    "priority": "High"
+  },
+  {
+    "id": "agent_fred",
+    "title": "Fred Agent",
+    "description": "Agent role not yet fully defined in SOUL.md. Placeholder for future assignment.",
+    "status": "To Do",
+    "assignedAgent": "Fred",
+    "subtasks": [],
+    "createdAt": "2026-03-18T12:00:00Z",
+    "updatedAt": "2026-03-18T12:00:00Z",
+    "priority": "Low"
+  },
+  {
+    "id": "agent_vitor",
+    "title": "Vitor Agent",
+    "description": "Agent role not yet fully defined in SOUL.md. Placeholder for future assignment.",
+    "status": "To Do",
+    "assignedAgent": "Vitor",
+    "subtasks": [],
+    "createdAt": "2026-03-18T12:00:00Z",
+    "updatedAt": "2026-03-18T12:00:00Z",
+    "priority": "Low"
+  },
+  {
+    "id": "agent_kewin",
+    "title": "Kewin Agent",
+    "description": "Agent role not yet fully defined in SOUL.md. Placeholder for future assignment.",
+    "status": "To Do",
+    "assignedAgent": "Kewin",
+    "subtasks": [],
+    "createdAt": "2026-03-18T12:00:00Z",
+    "updatedAt": "2026-03-18T12:00:00Z",
+    "priority": "Low"
+  },
+  {
+    "id": "agent_tamy",
+    "title": "Tamy (Finance Assistant)",
+    "description": "Primary agent for financial organization and budget planning.",
+    "status": "Completed",
+    "assignedAgent": "Tamy",
+    "subtasks": [],
+    "createdAt": "2026-03-18T12:00:00Z",
+    "updatedAt": "2026-03-18T12:00:00Z",
+    "priority": "High"
+  }
+]
