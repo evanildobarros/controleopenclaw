@@ -12,7 +12,9 @@ module.exports = {
         sans: ['Roboto', 'sans-serif'],
       },
       colors: {
-        'emerald-primary': '#04b983', // Um pouco mais vibrante
+        'emerald-primary': '#04b983', // Cor principal de ação/sucesso
+        'happiness-1': '#3b82f6', // Azul para elementos de destaque amigáveis (anteriormente 'happiness')
+        'happiness-2': '#2563eb', // Azul mais escuro para hover
         'danger-red': '#d64b4b',
         'background-dark': '#0f0f0f', // Fundo principal mais escuro (quase preto)
         'surface-dark': '#1a1a1a',   // Painéis e cards um pouco mais claros que o fundo
