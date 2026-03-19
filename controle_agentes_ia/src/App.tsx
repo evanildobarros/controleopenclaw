@@ -125,9 +125,9 @@ function App() {
 
     // SIMULAÇÃO DE INTERAÇÃO COM FIREBASE (APENAS NOTIFICA O USUÁRIO)
     console.log("--- SIMULAÇÃO DE ATRIBUIÇÃO DE TAREFA ---");
-    console.log(`Proprietário: ${FIXED_UID}`);
-    console.log(`Agente Alvo: ${selectedAgent.name} (${selectedAgent.id})`);
-    console.log(`Descrição: ${taskDescription}`);
+    console.log(`Proprietário: \${FIXED_UID}`);
+    console.log(`Agente Alvo: \${selectedAgent.name} (\${selectedAgent.id})`);
+    console.log(`Descrição: \${taskDescription}`);
     console.log("-------------------------------------------");
     alert(\`Tarefa atribuída (SIMULADO) para \${selectedAgent.name}. Verifique a lista de atividades.\`);
 
