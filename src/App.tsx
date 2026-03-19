@@ -146,44 +146,44 @@ function App() {
   // --- RENDERIZAÇÃO DE LOGIN ---
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center text-white p-4 font-sans">
-        <div className="max-w-md w-full bg-surface-dark p-8 rounded-2xl border border-white/10 shadow-2xl">
+      <div className="min-h-screen bg-bg-base flex flex-col items-center justify-center text-text-primary p-4 font-sans">
+        <div className="max-w-md w-full bg-surface-base p-8 rounded-2xl border border-white/5 shadow-2xl">
           <div className="w-16 h-16 bg-emerald-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <Activity className="w-8 h-8 text-emerald-primary" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight mb-2 text-center">OpenClaw Controller</h1>
-          <p className="text-zinc-400 mb-8 text-center">Acesse com suas credenciais de administrador.</p>
+          <p className="text-text-muted mb-8 text-center">Acesse com suas credenciais de administrador.</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Usuário</label>
+              <label className="block text-sm font-medium text-text-muted mb-1">Usuário</label>
               <div className="relative">
-                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-primary transition-all"
+                  className="w-full bg-black/50 border border-white/5 rounded-xl py-2.5 pl-10 pr-4 text-text-primary focus:outline-none focus:border-emerald-primary transition-all"
                   placeholder="Seu usuário"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-1">Senha</label>
+              <label className="block text-sm font-medium text-text-muted mb-1">Senha</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-primary transition-all"
+                  className="w-full bg-black/50 border border-white/5 rounded-xl py-2.5 pl-10 pr-4 text-text-primary focus:outline-none focus:border-emerald-primary transition-all"
                   placeholder="Sua senha"
                   required
                 />
               </div>
             </div>
-            {loginError && <p className="text-red-500 text-xs text-center">{loginError}</p>}
+            {loginError && <p className="text-danger-red text-xs text-center">{loginError}</p>}
             <button
               type="submit"
               className="w-full bg-emerald-primary text-black font-bold py-3 px-4 rounded-xl hover:bg-emerald-400 transition-colors mt-4"
@@ -198,27 +198,27 @@ function App() {
 
   // --- RENDERIZAÇÃO PRINCIPAL (LOGADO) ---
   return (
-    <div className="min-h-screen bg-background-dark text-text-light font-sans selection:bg-emerald-primary/30">
+    <div className="min-h-screen bg-bg-base text-text-primary font-sans selection:bg-emerald-primary/30">
       {/* Header */}
-      <header className="border-b border-white/10 bg-[#141414]/50 backdrop-blur-md sticky top-0 z-10">
+      <header className="border-b border-white/5 bg-bg-base/80 backdrop-blur-md sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-emerald-primary/20 rounded-lg flex items-center justify-center border border-emerald-primary/30">
+            <div className="w-8 h-8 bg-emerald-primary/10 rounded-lg flex items-center justify-center border border-emerald-primary/20">
               <Activity className="w-5 h-5 text-emerald-primary" />
             </div>
-            <h1 className="text-xl font-semibold tracking-tight">OpenClaw</h1>
+            <h1 className="text-xl font-semibold tracking-tight text-white">OpenClaw</h1>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <div className="flex items-center gap-2 text-sm text-zinc-400">
-              <div className="w-8 h-8 rounded-full border border-white/10 bg-emerald-primary/10 flex items-center justify-center">
+            <div className="flex items-center gap-2 text-sm text-text-muted">
+              <div className="w-8 h-8 rounded-full border border-white/5 bg-surface-base flex items-center justify-center">
                 <UserIcon className="w-4 h-4 text-emerald-primary" />
               </div>
-              <span className="hidden sm:inline">evanildobarros</span>
+              <span className="hidden sm:inline font-mono">evanildobarros</span>
             </div>
             <button
               onClick={handleLogout}
-              className="p-2 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              className="p-2 text-text-muted hover:text-white hover:bg-white/5 rounded-lg transition-colors"
               title="Sair"
             >
               <LogOut className="w-5 h-5" />
@@ -233,32 +233,32 @@ function App() {
           {/* Agents Grid */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold tracking-tight">Meus Agentes</h2>
-              <div className="text-sm font-mono text-zinc-500">
+              <h2 className="text-2xl font-semibold tracking-tight text-white">Meus Agentes</h2>
+              <div className="text-sm font-mono text-text-muted">
                 {agentsLoading ? '...' : `${agents.length} ONLINE`}
               </div>
             </div>
 
             {/* Nova seção para estatísticas resumidas dos agentes */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
-                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Total Ativos</p>
+                <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
+                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Total Ativos</p>
                     <p className="text-2xl font-semibold text-white">{agents.length}</p>
                 </div>
-                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
-                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Em Execução</p>
-                    <p className="text-2xl font-semibold text-emerald-400">{agents.filter(a => a.status === 'working').length}</p>
+                <div className="bg-surface-base border border-emerald-primary/20 p-4 rounded-xl shadow-[0_0_15px_rgba(4,185,131,0.05)]">
+                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Em Execução</p>
+                    <p className="text-2xl font-semibold text-emerald-primary">{agents.filter(a => a.status === 'working').length}</p>
                 </div>
-                <div className="bg-surface-dark border border-white/10 p-4 rounded-xl">
-                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Ociosos</p>
-                    <p className="text-2xl font-semibold text-zinc-400">{agents.filter(a => a.status === 'idle').length}</p>
+                <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
+                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Ociosos</p>
+                    <p className="text-2xl font-semibold text-zinc-500">{agents.filter(a => a.status === 'idle').length}</p>
                 </div>
             </div>
 
             {agentsLoading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className="h-32 bg-surface-dark rounded-2xl border border-white/5 animate-pulse" />
+                  <div key={i} className="h-32 bg-surface-base rounded-2xl border border-white/5 animate-pulse" />
                 ))}
               </div>
             ) : (
@@ -266,42 +266,36 @@ function App() {
                 {agents.map(agent => (
                   <div 
                     key={agent.id} 
-                    className="bg-surface-dark rounded-2xl border border-white/10 p-5 hover:border-white/20 transition-colors group relative overflow-hidden"
+                    className={`bg-surface-base rounded-2xl border ${agent.status === 'working' ? 'border-emerald-primary/30 shadow-[0_0_20px_rgba(4,185,131,0.05)]' : 'border-white/5'} p-5 hover:border-white/10 transition-colors group relative overflow-hidden`}
                   >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="text-lg font-medium flex items-center gap-2">
+                        <h3 className="text-lg font-medium flex items-center gap-2 text-white">
                           {agent.name}
                           {agent.name === 'Mary' && ( 
-                            <span className="text-[10px] uppercase tracking-wider bg-emerald-primary/10 text-emerald-400 px-2 py-0.5 rounded-full font-mono border border-emerald-primary/20">
+                            <span className="text-[10px] uppercase tracking-wider bg-emerald-primary/10 text-emerald-primary px-2 py-0.5 rounded-full font-mono border border-emerald-primary/20">
                               MAIN
                             </span>
                           )}
                         </h3>
-                        <p className="text-sm text-zinc-500 font-mono mt-1">{agent.role}</p>
+                        <p className="text-sm text-text-muted font-mono mt-1">{agent.role}</p>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <span className="relative flex h-2.5 w-2.5">
+                        <span className={`relative flex h-2.5 w-2.5 ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-700'} rounded-full`}>
                           {agent.status === 'working' && (
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-primary opacity-75"></span>
                           )}
-                          <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                            agent.status === 'working' ? 'bg-emerald-primary' : 
-                            agent.status === 'idle' ? 'bg-zinc-500' : 
-                            agent.status === 'error' ? 'bg-danger-red' : 'bg-zinc-700'
-                          }`}></span>
                         </span>
-                        <span className="text-xs uppercase tracking-wider font-mono text-zinc-400">
+                        <span className="text-xs uppercase tracking-wider font-mono text-text-muted">
                           {agent.status}
                         </span>
                       </div>
                     </div>
 
                     {agent.status === 'working' && agent.currentTask ? (
-                      <div className="bg-black/50 rounded-lg p-3 border border-white/5 mb-4">
-                        <p className="text-sm text-zinc-300 line-clamp-2">{agent.currentTask}</p>
+                      <div className="bg-black/30 rounded-lg p-3 border border-white/5 mb-4">
+                        <p className="text-sm text-text-primary line-clamp-2">{agent.currentTask}</p>
                       </div>
                     ) : (
                       <div className="h-12 mb-4 flex items-center text-sm text-zinc-600 italic">
@@ -313,7 +307,7 @@ function App() {
                       <button
                         onClick={() => setSelectedAgent(agent)}
                         disabled={agent.status === 'working'}
-                        className="text-sm font-medium bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                        className="text-sm font-medium bg-white/5 hover:bg-emerald-primary/10 hover:text-emerald-primary disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
                       >
                         <Plus className="w-4 h-4" />
                         Atribuir Tarefa
@@ -327,32 +321,32 @@ function App() {
 
           {/* Task Feed */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-tight">Feed de Atividades</h2>
-            <div className="bg-surface-dark rounded-2xl border border-white/10 overflow-hidden flex flex-col h-[600px]">
-              <div className="p-4 border-b border-white/10 bg-black/20">
-                <h3 className="text-sm font-mono text-zinc-400 uppercase tracking-wider">Tarefas Recentes</h3>
+            <h2 className="text-2xl font-semibold tracking-tight text-white">Feed de Atividades</h2>
+            <div className="bg-surface-base rounded-2xl border border-white/5 overflow-hidden flex flex-col h-[600px]">
+              <div className="p-4 border-b border-white/5 bg-white/5">
+                <h3 className="text-sm font-mono text-text-muted uppercase tracking-wider">Tarefas Recentes</h3>
               </div>
               <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
                 {tasks.length === 0 ? (
-                  <div className="text-center text-zinc-500 text-sm py-8">
+                  <div className="text-center text-text-muted text-sm py-8">
                     Nenhuma tarefa registrada.
                   </div>
                 ) : (
                   tasks.map(task => {
                     const agent = agents.find(a => a.id === task.agentId);
                     return (
-                      <div key={task.id} className="relative pl-6 pb-4 border-l border-white/10 last:border-0 last:pb-0">
-                        <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-background-dark border-2 border-zinc-500" />
-                        <div className="bg-black/40 rounded-xl p-3 border border-white/5">
+                      <div key={task.id} className="relative pl-6 pb-4 border-l border-white/5 last:border-0 last:pb-0">
+                        <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-bg-base border-2 border-zinc-700" />
+                        <div className="bg-black/20 rounded-xl p-3 border border-white/5">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-mono text-emerald-400">
+                            <span className="text-xs font-mono text-emerald-primary">
                               {agent?.name || 'Agente Desconhecido'}
                             </span>
-                            <span className="text-[10px] font-mono text-zinc-500">
+                            <span className="text-[10px] font-mono text-zinc-600">
                               {task.createdAt?.toLocaleTimeString ? task.createdAt.toLocaleTimeString() : 'Recente'}
                             </span>
                           </div>
-                          <p className="text-sm text-zinc-300 mb-3">{task.description}</p>
+                          <p className="text-sm text-text-primary mb-3">{task.description}</p>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-1.5">
                               {task.status === 'completed' ? (
@@ -362,7 +356,7 @@ function App() {
                               ) : (
                                 <XCircle className="w-3.5 h-3.5 text-danger-red" />
                               )}
-                              <span className="text-xs uppercase tracking-wider font-mono text-zinc-500">
+                              <span className="text-xs uppercase tracking-wider font-mono text-text-muted">
                                 {task.status}
                               </span>
                             </div>
@@ -370,7 +364,7 @@ function App() {
                             {task.status !== 'completed' && task.status !== 'failed' && (
                               <button 
                                 onClick={() => completeTask(task.id, task.agentId)}
-                                className="text-xs bg-emerald-primary/10 text-emerald-400 hover:bg-emerald-primary/20 px-2 py-1 rounded transition-colors"
+                                className="text-xs bg-emerald-primary/10 text-emerald-primary hover:bg-emerald-primary/20 px-2 py-1 rounded transition-colors"
                               >
                                 Concluir
                               </button>
@@ -391,12 +385,12 @@ function App() {
       {/* Task Assignment Modal */}
       {selectedAgent && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-surface-dark border border-white/10 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+          <div className="bg-surface-elevated border border-white/10 rounded-2xl max-w-md w-full p-6 shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold">Nova Tarefa para {selectedAgent.name}</h3>
+              <h3 className="text-xl font-semibold text-white">Nova Tarefa para {selectedAgent.name}</h3>
               <button 
                 onClick={() => setSelectedAgent(null)}
-                className="text-zinc-500 hover:text-white transition-colors"
+                className="text-text-muted hover:text-white transition-colors"
               >
                 <XCircle className="w-6 h-6" />
               </button>
@@ -404,13 +398,13 @@ function App() {
             
             <form onSubmit={handleAssignTask}>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-zinc-400 mb-2">
+                <label className="block text-sm font-medium text-text-muted mb-2">
                   Descrição da Tarefa
                 </label>
                 <textarea
                   value={taskDescription}
                   onChange={(e) => setTaskDescription(e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-primary focus:ring-1 focus:ring-emerald-primary transition-all resize-none h-32"
+                  className="w-full bg-black/30 border border-white/5 rounded-xl p-3 text-text-primary placeholder-zinc-600 focus:outline-none focus:border-emerald-primary focus:ring-1 focus:ring-emerald-primary transition-all resize-none h-32"
                   placeholder="Ex: Analisar os logs do servidor e gerar um relatório..."
                   required
                   autoFocus
@@ -421,7 +415,7 @@ function App() {
                 <button
                   type="button"
                   onClick={() => setSelectedAgent(null)}
-                  className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-text-muted hover:text-white transition-colors"
                 >
                   Cancelar
                 </button>
@@ -441,5 +435,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
