@@ -1,8 +1,7 @@
+import { Activity, CheckCircle2, CircleDashed, Lock, LogOut, PlayCircle, Plus, User as UserIcon, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { db } from './firebase';
 import { useAgents } from './hooks/useAgents';
 import { useTasks } from './hooks/useTasks';
-import { Activity, CheckCircle2, CircleDashed, LogOut, Plus, User as UserIcon, XCircle, Clock, PlayCircle, Lock } from 'lucide-react';
 // Firebase imports are kept minimal as actual logic is mocked for this context
 // import { collection, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 
@@ -129,7 +128,9 @@ function App() {
     console.log(`Agente Alvo: ${selectedAgent.name} (${selectedAgent.id})`);
     console.log(`Descrição: ${taskDescription}`);
     console.log("-------------------------------------------");
-    alert(\`Tarefa atribuída (SIMULADO) para \${selectedAgent.name}. Verifique a lista de atividades.\`);
+    console.log("-------------------------------------------");
+
+    setTaskDescription('');
 
     setTaskDescription('');
     setSelectedAgent(null);
@@ -137,8 +138,8 @@ function App() {
 
   const completeTask = async (taskId: string, agentId: string) => {
     // SIMULAÇÃO DE INTERAÇÃO COM FIREBASE
-    console.log(\`--- SIMULAÇÃO DE CONCLUSÃO DE TAREFA: \${taskId} ---\`);
-    alert(\`Tarefa \${taskId} marcada como concluída (SIMULADO).\`);
+    console.log(`--- TASK COMPLETION SIMULATION: ${taskId} ---`);
+    alert(`Tarefa ${taskId} marcada como concluída (SIMULADO).`);
     // Em um ambiente real, isso faria um update no firestore
   };
 
@@ -234,7 +235,7 @@ function App() {
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-semibold tracking-tight">Meus Agentes</h2>
               <div className="text-sm font-mono text-zinc-500">
-                {agentsLoading ? '...' : \`\${agents.length} ONLINE\`}
+                {agentsLoading ? '...' : `${agents.length} ONLINE`}
               </div>
             </div>
 
@@ -251,7 +252,7 @@ function App() {
                     key={agent.id} 
                     className="bg-surface-dark rounded-2xl border border-white/10 p-5 hover:border-white/20 transition-colors group relative overflow-hidden"
                   >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     
                     <div className="flex justify-between items-start mb-4">
                       <div>
@@ -270,11 +271,11 @@ function App() {
                           {agent.status === 'working' && (
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                           )}
-                          <span className={\`relative inline-flex rounded-full h-2.5 w-2.5 \${
+                          <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
                             agent.status === 'working' ? 'bg-emerald-primary' : 
                             agent.status === 'idle' ? 'bg-zinc-500' : 
                             agent.status === 'error' ? 'bg-danger-red' : 'bg-zinc-700'
-                          }\`}></span>
+                          }`}></span>
                         </span>
                         <span className="text-xs uppercase tracking-wider font-mono text-zinc-400">
                           {agent.status}
