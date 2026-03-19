@@ -256,67 +256,49 @@ function App() {
             </div>
 
             {agentsLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className="h-32 bg-surface-base rounded-2xl border border-white/5 animate-pulse" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="h-64 bg-surface-base rounded-2xl border border-white/5 animate-pulse" />
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {agents.map(agent => {
                   const displayName = agent.id.includes('fred') ? 'Fred' : agent.name;
                   const displayRole = agent.id.includes('fred') ? 'Mestre Orquestrador e Mentor Pessoal' : agent.role;
                   return (
-                  <div 
-                    key={agent.id} 
-                    className={`bg-surface-base rounded-2xl border ${agent.status === 'working' ? 'border-emerald-primary/30 shadow-[0_0_20px_rgba(4,185,131,0.05)]' : 'border-white/5'} p-5 hover:border-white/10 transition-colors group relative overflow-hidden`}
-                  >
-                    
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-lg font-medium flex items-center gap-2 text-white">
-                          {displayName}
-                          {agent.id.includes('mary') && ( 
-                            <span className="text-[10px] uppercase tracking-wider bg-emerald-primary/10 text-emerald-primary px-2 py-0.5 rounded-full font-mono border border-emerald-primary/20">
-                              MAIN
-                            </span>
+                    <div 
+                      key={agent.id} 
+                      className="group flex flex-col items-center text-center p-6 bg-surface-base border border-white/5 rounded-3xl hover:border-emerald-primary/30 transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.05)]"
+                    >
+                      <div className={`relative w-24 h-24 rounded-full bg-black/50 border border-white/10 flex items-center justify-center mb-6 overflow-hidden ${agent.status === 'working' ? 'ring-2 ring-emerald-primary/30' : ''}`}>
+                         {agent.status === 'working' && (
+                            <span className="absolute inset-0 bg-emerald-primary/10 animate-pulse"></span>
                           )}
-                        </h3>
-                        <p className="text-sm text-text-muted font-mono mt-1">{displayRole}</p>
+                        <UserIcon className="w-10 h-10 text-emerald-primary/50" />
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className={`relative flex h-2.5 w-2.5 ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-700'} rounded-full`}>
-                          {agent.status === 'working' && (
+                      
+                      <h3 className="text-xl font-semibold text-white mb-1">{displayName}</h3>
+                      <p className="text-sm text-emerald-primary font-mono mb-4">{displayRole}</p>
+                      
+                      <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
+                        <span className={`relative flex h-2 w-2 rounded-full ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-600'}`}>
+                           {agent.status === 'working' && (
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-primary opacity-75"></span>
                           )}
                         </span>
-                        <span className="text-xs uppercase tracking-wider font-mono text-text-muted">
-                          {agent.status}
-                        </span>
+                        <span className="text-xs uppercase tracking-wider font-mono text-text-muted">{agent.status}</span>
                       </div>
-                    </div>
 
-                    {agent.status === 'working' && agent.currentTask ? (
-                      <div className="bg-black/30 rounded-lg p-3 border border-white/5 mb-4">
-                        <p className="text-sm text-text-primary line-clamp-2">{agent.currentTask}</p>
-                      </div>
-                    ) : (
-                      <div className="h-12 mb-4 flex items-center text-sm text-zinc-600 italic">
-                        Aguardando instruções...
-                      </div>
-                    )}
-
-                    <div className="flex justify-end">
                       <button
                         onClick={() => setSelectedAgent(agent)}
                         disabled={agent.status === 'working'}
-                        className="text-sm font-medium bg-white/5 hover:bg-emerald-primary/10 hover:text-emerald-primary disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                        className="mt-auto w-full text-sm font-medium bg-white/5 hover:bg-emerald-primary/10 hover:text-emerald-primary disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-2"
                       >
                         <Plus className="w-4 h-4" />
                         Atribuir Tarefa
                       </button>
                     </div>
-                  </div>
                   );
                 })}
               </div>
