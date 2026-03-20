@@ -37,7 +37,7 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
     if (agent && activeTab === 'brain') {
       setIsEditing(false); // Reset editing lock when switching tabs/files
       setBrainContent('Carregando arquivo...');
-      getFileContent(agent.localPath, activeBrainFile).then(content => {
+      getFileContent(agent.id, activeBrainFile).then(content => {
           setBrainContent(content);
       });
     }
@@ -47,7 +47,7 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
   const handleSaveFile = async () => {
     if (!agent) return;
     setIsSaving(true);
-    await saveFileContent(agent.localPath, activeBrainFile, brainContent);
+    await saveFileContent(agent.id, activeBrainFile, brainContent);
     setIsSaving(false);
     setIsEditing(false);
   };

@@ -1,37 +1,35 @@
+import { supabase } from '../lib/supabase';
+
 const INITIAL_MOCK_DATA: Record<string, string> = {
   'SOUL.md': '# Soul\n\nFallback de arquivo SOUL.',
   'IDENTITY.md': '# Identity\n\nFallback de arquivo IDENTITY.',
   'MEMORY.md': '# Memory\n\nFallback de arquivo MEMORY.',
 };
 
-export const getFileContent = async (agentPath: string, fileName: string): Promise<string> => {
+export const getFileContent = async (agentId: string, fileName: string): Promise<string> => {
   try {
-    const res = await fetch(`/api/files?path=${encodeURIComponent(agentPath)}&file=${encodeURIComponent(fileName)}`);
-    if (res.ok) {
-        const body = await res.json();
-        return body.content;
+    const { data, error } = await supabase
+      .from('agent_files')
+      .select('content')
+      .eq('agent_id', agentId)
+      .eq('file_name', fileName)
+      .single();
+
+    if (error || !data) {
+      console.warn(`[File Service] Não foi encontrado ${fileName} para o agente ${agentId} no banco.`);
+      return INITIAL_MOCK_DATA[fileName] || `# ${fileName}\n\nArquivo ainda não sincronizado da máquina local.`;
     }
-    console.warn(`[File Service] File not found or failed reading on path: ${agentPath}/${fileName}`);
+
+    return data.content;
   } catch (err) {
     console.error(`[File Service] Fetch error:`, err);
+    return `# Erro de Conexão\n\nNão foi possível acessar a nuvem para o ${fileName}`;
   }
-  
-  return INITIAL_MOCK_DATA[fileName] || `# ${fileName}\n\nArquivo vazio no diretório local.`;
 };
 
-export const saveFileContent = async (agentPath: string, fileName: string, content: string): Promise<void> => {
-  try {
-     const res = await fetch(`/api/files?path=${encodeURIComponent(agentPath)}&file=${encodeURIComponent(fileName)}`, {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ content })
-     });
-     if (res.ok) {
-         console.log(`[File Service] Sucesso: Salvo ${fileName} no caminho real local: ${agentPath}`);
-     } else {
-         console.error(`[File Service] Falha na API ao salvar ${fileName}`);
-     }
-  } catch (err) {
-     console.error(`[File Service] Erro de rede ao salvar ${fileName}:`, err);
-  }
+export const saveFileContent = async (agentId: string, fileName: string, content: string): Promise<void> => {
+  // Conforme sua escolha: O Dashboard na nuvem agora opera apenas em leitura para esses arquivos 
+  // O conteúdo real será empurrado de baixo para cima pelo Script Daemon local do seu Ubuntu.
+  alert('Modo Nuvem (Vercel): Edição direta do Brain desativada visando preservar a integridade local.');
+  console.log(`[File Service] Save abortado (Modo Read-Only). Arquivo: ${fileName}`);
 };
