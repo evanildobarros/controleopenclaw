@@ -1,21 +1,39 @@
 @import "tailwindcss";
 @import "./app.css";
 
-/* Estilos customizados para scrollbar (para o feed de tarefas) */
+/* Estilos customizados para scrollbar (para o feed de tarefas) - Light Mode Optimized */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: #1e1e1e; /* Cor da trilha no dark mode */
+    background: #f5f5f5; /* Cor da trilha clara */
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4b5563; /* Cor do "polegar" */
+    background: #d1d5db; /* Cor mais suave */
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #6b7280; /* Cor do "polegar" ao passar o mouse */
+    background: #9ca3af;
 }
+
+/* Force all text to black as requested */
+* {
+    color: #000000 !important;
+}
+
+/* Fix for icons if needed (though some icons are decorative) */
+/* SVG paths should probably still follow color rules unless decorative */
+svg path {
+    stroke: #000000 !important;
+}
+
+svg circle {
+    stroke: #000000 !important;
+}
+
+/* Specific case for emerald primary text? He said ALL. */
+/* So emerald-primary should only be background, text inside must be black. */

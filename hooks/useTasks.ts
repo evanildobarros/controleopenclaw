@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
+import { supabase } from '../src/lib/supabase';
 
 interface Task {
   id: string;
@@ -8,8 +7,8 @@ interface Task {
   agentId: string;
   description: string;
   status: 'pending' | 'in-progress' | 'completed' | 'failed';
-  createdAt: any; // Timestamp do Firebase
-  completedAt?: any;
+  createdAt: string; 
+  completedAt?: string;
 }
 
 export const useTasks = (ownerId: string | undefined) => {
@@ -23,40 +22,45 @@ export const useTasks = (ownerId: string | undefined) => {
       return;
     }
 
-    // Simulação: Se o ownerId é o fixo, vamos carregar um conjunto de tarefas simuladas.
-    if (ownerId === 'evanildo_admin_001') {
-        // Mock de tarefas para testes locais sem DB populado
-        setTasks([
-            { id: 't1', ownerId: 'evanildo_admin_001', agentId: 'mary_123', description: 'Revisar e implementar o tema escuro no controleopenclaw/index.html', status: 'in-progress', createdAt: new Date(Date.now() - 300000) },
-            { id: 't2', ownerId: 'evanildo_admin_001', agentId: 'kewin_012', description: 'Implementar a lógica de toggle de tema no App.tsx', status: 'pending', createdAt: new Date(Date.now() - 120000) },
-            { id: 't3', ownerId: 'evanildo_admin_001', agentId: 'vitor_456', description: 'Verificar a conexão do Firebase no ambiente de produção.', status: 'completed', createdAt: new Date(Date.now() - 600000) },
-        ]);
-        setLoading(false);
-        return;
-    }
-    
-    const q = query(
-      collection(db, 'tasks'), 
-      where('ownerId', '==', ownerId), 
-      orderBy('createdAt', 'desc')
-    );
-    
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const tasksList: Task[] = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt?.toDate ? doc.data().createdAt.toDate() : doc.data().createdAt,
-        completedAt: doc.data().completedAt?.toDate ? doc.data().completedAt.toDate() : doc.data().completedAt,
-      } as Task));
+    const fetchTasks = async () => {
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('id, ownerId:owner_id, agentId:agent_id, description, status, createdAt:created_at, completedAt:completed_at')
+        .eq('owner_id', ownerId)
+        .order('created_at', { ascending: false })
+        .limit(20);
       
-      setTasks(tasksList.slice(0, 20)); 
+      if (error) {
+        console.error("Erro ao buscar tarefas:", error);
+      } else {
+        setTasks(data as any[]);
+      }
       setLoading(false);
-    }, (error) => {
-      console.error("Erro ao buscar tarefas:", error);
-      setLoading(false);
-    });
+    };
 
-    return () => unsubscribe();
+    fetchTasks();
+
+    // Inscrição em tempo real para mudanças nas tarefas deste proprietário
+    const channel = supabase
+      .channel(`tasks-${ownerId}`)
+      .on(
+        'postgres_changes', 
+        { 
+          event: '*', 
+          schema: 'public', 
+          table: 'tasks', 
+          filter: `owner_id=eq.${ownerId}` 
+        }, 
+        (payload) => {
+          console.log('Mudança detectada em tarefas:', payload);
+          fetchTasks(); 
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [ownerId]);
 
   return { tasks, loading };

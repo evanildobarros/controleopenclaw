@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
+import { supabase } from '../src/lib/supabase';
 
 interface Agent {
   id: string;
@@ -8,7 +7,7 @@ interface Agent {
   role: string;
   status: 'idle' | 'working' | 'error';
   currentTask: string | null;
-  updatedAt: any; // Timestamp do Firebase
+  updatedAt: string;
 }
 
 export const useAgents = (ownerId: string | undefined) => {
@@ -22,40 +21,44 @@ export const useAgents = (ownerId: string | undefined) => {
       return;
     }
 
-    // Define um ID fixo para o agente principal, pois estamos simulando um ambiente onde o App.tsx
-    // se autentica como 'admin' (FIXED_UID) e deve ver seus agentes gerenciados.
-    // Na versão subagent, os IDs dos subagents seriam listados dinamicamente, mas aqui simulamos com um mock.
-    
-    // Simulação: Se o ownerId é o fixo, vamos carregar um conjunto de agentes simulados.
-    if (ownerId === 'evanildo_admin_001') {
-        // Mock de agentes para testes locais sem DB populado
-        setAgents([
-            { id: 'mary_123', name: 'Mary', role: 'Desenvolvimento/ESG', status: 'working', currentTask: 'Revisar e implementar o tema escuro no controleopenclaw/index.html', updatedAt: new Date() },
-            { id: 'vitor_456', name: 'Vitor', role: 'Infra/Deploy', status: 'idle', currentTask: null, updatedAt: new Date() },
-            { id: 'tamy_789', name: 'Tamy', role: 'Financeiro/Gestão', status: 'idle', currentTask: null, updatedAt: new Date() },
-            { id: 'kewin_012', name: 'Kewin', role: 'Frontend/UX', status: 'working', currentTask: 'Implementar a lógica de toggle de tema no App.tsx', updatedAt: new Date() },
-        ]);
-        setLoading(false);
-        return;
-    }
-    
-    const q = query(collection(db, 'agents'), where('ownerId', '==', ownerId));
-    
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const agentsList: Agent[] = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        updatedAt: doc.data().updatedAt?.toDate ? doc.data().updatedAt.toDate() : doc.data().updatedAt,
-      } as Agent));
+    const fetchAgents = async () => {
+      const { data, error } = await supabase
+        .from('agents')
+        .select('id, name, role, status, currentTask:current_task, updatedAt:updated_at')
+        .eq('owner_id', ownerId)
+        .order('name');
       
-      setAgents(agentsList);
+      if (error) {
+        console.error("Erro ao buscar agentes:", error);
+      } else {
+        setAgents(data as any[]);
+      }
       setLoading(false);
-    }, (error) => {
-      console.error("Erro ao buscar agentes:", error);
-      setLoading(false);
-    });
+    };
 
-    return () => unsubscribe();
+    fetchAgents();
+
+    // Inscrição em tempo real para mudanças nos agentes deste proprietário
+    const channel = supabase
+      .channel(`agents-${ownerId}`)
+      .on(
+        'postgres_changes', 
+        { 
+          event: '*', 
+          schema: 'public', 
+          table: 'agents', 
+          filter: `owner_id=eq.${ownerId}` 
+        }, 
+        (payload) => {
+          console.log('Mudança detectada no Supabase:', payload);
+          fetchAgents(); // Recarregar lista completa para simplificar o estado
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [ownerId]);
 
   return { agents, loading };

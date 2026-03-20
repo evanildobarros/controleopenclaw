@@ -3,7 +3,6 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./controle_agentes_ia/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: 'class',
   theme: {
@@ -12,15 +11,15 @@ module.exports = {
         sans: ['Roboto', 'sans-serif'],
       },
       colors: {
-        // Emerald Command Palette
+        // Light Command Palette (Based on User request: All fonts MUST be black)
         'emerald-primary': '#04b983',
-        'emerald-glow': 'rgba(4, 185, 131, 0.15)',
-        'bg-base': '#0a0a0a',
-        'surface-base': '#141414',
-        'surface-elevated': '#1e1e1e',
-        'text-primary': '#e0e0e0',
-        'text-muted': '#a0a0a0',
-        'danger-red': '#d64b4b',
+        'emerald-glow': 'rgba(4, 185, 131, 0.1)',
+        'bg-base': '#ffffff', 
+        'surface-base': '#fafafa',
+        'surface-elevated': '#f0f0f0',
+        'text-primary': '#000000',
+        'text-muted': '#000000',
+        'danger-red': '#cc0000',
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
