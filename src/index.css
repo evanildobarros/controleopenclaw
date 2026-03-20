@@ -1,39 +1,56 @@
 @import "tailwindcss";
-@import "./app.css";
 
-/* Estilos customizados para scrollbar (para o feed de tarefas) - Light Mode Optimized */
+/* Estilos customizados para scrollbar Dark Mode */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f5f5f5; /* Cor da trilha clara */
+    background: transparent;
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #d1d5db; /* Cor mais suave */
+    background: #374151; /* bg-gray-700 */
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: #4b5563; /* bg-gray-600 */
 }
 
-/* Force all text to black as requested */
-* {
-    color: #000000 !important;
+/* Base styles for React-Markdown in Dark Mode since we don't have @tailwindcss/typography */
+.prose h1 { 
+    font-size: 1.5rem; 
+    line-height: 2rem; 
+    font-weight: 700; 
+    margin-bottom: 1rem; 
+    color: #34d399; /* emerald-400 */
 }
-
-/* Fix for icons if needed (though some icons are decorative) */
-/* SVG paths should probably still follow color rules unless decorative */
-svg path {
-    stroke: #000000 !important;
+.prose h2 { 
+    font-size: 1.25rem; 
+    line-height: 1.75rem; 
+    font-weight: 700; 
+    margin-bottom: 0.75rem; 
+    margin-top: 1.5rem; 
+    color: #ffffff; 
 }
-
-svg circle {
-    stroke: #000000 !important;
+.prose p { 
+    margin-bottom: 1rem; 
+    color: #d1d5db; /* gray-300 */
+    line-height: 1.625; 
 }
-
-/* Specific case for emerald primary text? He said ALL. */
-/* So emerald-primary should only be background, text inside must be black. */
+.prose ul { 
+    list-style-type: disc; 
+    padding-left: 1.25rem; 
+    margin-bottom: 1rem; 
+    color: #d1d5db; 
+}
+.prose li { 
+    margin-bottom: 0.25rem; 
+}
+.prose strong { 
+    color: #ffffff; 
+    font-weight: 600; 
+}

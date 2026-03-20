@@ -1,16 +1,1 @@
-/* Temas globais para o Controle OpenClaw */
-
-:root {
-  --background-light: #ffffff;
-  --text-black: #000000;
-}
-
-body {
-  background-color: var(--background-light);
-  color: var(--text-black) !important;
-}
-
-/* Forçar preto em todos os textos da aplicação */
-* {
-    color: #000000 !important;
-}
+/* Arquivo app.css vazio para limpeza das regras de fonte preta global */
