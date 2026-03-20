@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* Estilos customizados para scrollbar Dark Mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Estilos customizados para scrollbar Dark/Light Mode */
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -12,21 +14,30 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #374151; /* bg-gray-700 */
+    background: #e5e7eb; /* bg-gray-200 for Light */
     border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db; /* bg-gray-300 for Light */
+}
+
+/* Scrollbar Dark variants */
+:where(.dark, .dark *) .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #374151; /* bg-gray-700 */
+}
+
+:where(.dark, .dark *) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #4b5563; /* bg-gray-600 */
 }
 
-/* Base styles for React-Markdown in Dark Mode since we don't have @tailwindcss/typography */
+/* Base styles for React-Markdown in Light and Dark Mode */
 .prose h1 { 
     font-size: 1.5rem; 
     line-height: 2rem; 
     font-weight: 700; 
     margin-bottom: 1rem; 
-    color: #34d399; /* emerald-400 */
+    @apply text-emerald-600 dark:text-emerald-400;
 }
 .prose h2 { 
     font-size: 1.25rem; 
@@ -34,23 +45,23 @@
     font-weight: 700; 
     margin-bottom: 0.75rem; 
     margin-top: 1.5rem; 
-    color: #ffffff; 
+    @apply text-gray-900 dark:text-white;
 }
 .prose p { 
     margin-bottom: 1rem; 
-    color: #d1d5db; /* gray-300 */
     line-height: 1.625; 
+    @apply text-gray-700 dark:text-gray-300;
 }
 .prose ul { 
     list-style-type: disc; 
     padding-left: 1.25rem; 
     margin-bottom: 1rem; 
-    color: #d1d5db; 
+    @apply text-gray-700 dark:text-gray-300;
 }
 .prose li { 
     margin-bottom: 0.25rem; 
 }
 .prose strong { 
-    color: #ffffff; 
     font-weight: 600; 
+    @apply text-gray-900 dark:text-white;
 }

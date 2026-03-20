@@ -260,22 +260,22 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
             </div>
             
             {/* Terminal Mock */}
-            <div className="bg-gray-900 dark:bg-black rounded-2xl border border-gray-800 p-4 h-[280px] flex flex-col">
-              <div className="flex items-center gap-2 text-gray-400 dark:text-gray-500 mb-2 font-mono text-xs border-b border-gray-700 dark:border-gray-800 pb-2">
+            <div className="bg-gray-50 dark:bg-black rounded-2xl border border-gray-200 dark:border-gray-800 p-4 h-[280px] flex flex-col shadow-inner dark:shadow-none">
+              <div className="flex items-center gap-2 text-gray-400 dark:text-gray-500 mb-2 font-mono text-xs border-b border-gray-200 dark:border-gray-800 pb-2">
                  <Terminal className="w-4 h-4" /> root@{agent.name.toLowerCase()} - stdout
               </div>
-              <div className="flex-1 overflow-auto custom-scrollbar font-mono text-xs text-emerald-400 dark:text-emerald-500" ref={logsRef}>
+              <div className="flex-1 overflow-auto custom-scrollbar font-mono text-xs text-emerald-600 dark:text-emerald-500" ref={logsRef}>
                  {agent.status === 'working' ? (
                    <>
-                     <div>&gt; Inicializando ambiente de trabalho...</div>
+                     <div className="text-emerald-600 dark:text-emerald-500">&gt; Inicializando ambiente de trabalho...</div>
                      <br/>
-                     <div className="animate-pulse">&gt; Analisando tarefa pendente...</div>
-                     <div>&gt; Carregando pacotes de memória de {agent.localPath}</div>
+                     <div className="animate-pulse text-emerald-600 dark:text-emerald-500">&gt; Analisando tarefa pendente...</div>
+                     <div className="text-emerald-600 dark:text-emerald-500">&gt; Carregando pacotes de memória de {agent.localPath}</div>
                      <br/>
-                     <div className="text-gray-400">... aguardando resposta da rotina core ...</div>
+                     <div className="text-gray-400 dark:text-gray-500">... aguardando resposta da rotina core ...</div>
                    </>
                  ) : (
-                   <div className="text-gray-500 dark:text-gray-600">&gt; Agente aguardando instruções. Sistema em Standby.</div>
+                   <div className="text-gray-400 dark:text-gray-600">&gt; Agente aguardando instruções. Sistema em Standby.</div>
                  )}
               </div>
             </div>
