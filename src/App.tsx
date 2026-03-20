@@ -264,6 +264,7 @@ function App() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {agents.map(agent => {
+                  console.log('AGENT OBJECT:', agent);
                   return (
                     <div 
                       key={agent.id} 
@@ -276,9 +277,12 @@ function App() {
                         <UserIcon className="w-10 h-10 text-emerald-primary/50" />
                       </div>
                       
-                      {/* Debug: {JSON.stringify(agent)} */}
-                      <h3 className="text-xl font-semibold text-white mb-1">{agent.name}</h3>
-                      <p className="text-sm text-emerald-primary font-mono mb-4">{agent.role}</p>
+                      <h3 className="text-xl font-semibold text-white mb-1">
+                        {agent.id.includes('fred') ? 'Fred' : (agent.name || 'Sem nome')}
+                      </h3>
+                      <p className="text-sm text-emerald-primary font-mono mb-4">
+                        {agent.id.includes('fred') ? 'Mestre Orquestrador e Mentor Pessoal' : (agent.role || 'Sem papel')}
+                      </p>
                       
                       <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
                         <span className={`relative flex h-2 w-2 rounded-full ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-600'}`}>
