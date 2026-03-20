@@ -276,8 +276,13 @@ function App() {
                         <UserIcon className="w-10 h-10 text-emerald-primary/50" />
                       </div>
                       
-                      <h3 className="text-xl font-semibold text-white mb-1">{agent.name}</h3>
-                      <p className="text-sm text-emerald-primary font-mono mb-4">{agent.role}</p>
+                      {/* Debug: {JSON.stringify(agent)} */}
+                      <h3 className="text-xl font-semibold text-white mb-1">
+                        NOME: {agent.name || 'N/A'}
+                      </h3>
+                      <p className="text-sm text-emerald-primary font-mono mb-4">
+                        PAPEL: {agent.role || 'N/A'}
+                      </p>
                       
                       <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
                         <span className={`relative flex h-2 w-2 rounded-full ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-600'}`}>
