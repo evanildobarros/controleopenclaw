@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAgents } from '../hooks/useAgents';
 import { Home } from './pages/Home';
 import { AgentDashboard } from './pages/AgentDashboard';
+import { ThemeToggle } from './components/ThemeToggle';
 
 const FIXED_UID = 'evanildo_admin_001';
 const CREDENTIALS = {
@@ -48,38 +49,38 @@ function App() {
 
   if (!isLoggedIn) {
      return (
-        <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-white p-4 font-sans">
-        <div className="max-w-md w-full bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center text-gray-900 dark:text-white p-4 font-sans transition-colors duration-200">
+        <div className="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl dark:shadow-2xl">
           <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <Activity className="w-8 h-8 text-emerald-500" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2 text-center text-white">OpenClaw Controller</h1>
-          <p className="text-gray-400 mb-8 text-center">Acesse com suas credenciais de administrador.</p>
+          <h1 className="text-3xl font-bold tracking-tight mb-2 text-center text-gray-900 dark:text-white">OpenClaw Controller</h1>
+          <p className="text-gray-500 dark:text-gray-400 mb-8 text-center">Acesse com suas credenciais de administrador.</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Usuário</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Usuário</label>
               <div className="relative">
-                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-all"
                   placeholder="Seu usuário"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Senha</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-all"
                   placeholder="Sua senha"
                   required
                 />
@@ -88,7 +89,7 @@ function App() {
             {loginError && <p className="text-red-500 text-xs text-center">{loginError}</p>}
             <button
               type="submit"
-              className="w-full bg-emerald-500 text-gray-900 font-bold py-3 px-4 rounded-xl hover:bg-emerald-400 transition-colors mt-4"
+              className="w-full bg-emerald-500 text-white dark:text-gray-900 font-bold py-3 px-4 rounded-xl hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors mt-4"
             >
               Entrar no Sistema
             </button>
@@ -100,25 +101,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-950 text-white font-sans selection:bg-emerald-500/30">
-        <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-10">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white font-sans transition-colors duration-200 selection:bg-emerald-500/30">
+        <header className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-10 transition-colors duration-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-emerald-500/10 rounded-lg flex items-center justify-center border border-emerald-500/20">
                 <Activity className="w-5 h-5 text-emerald-500" />
               </div>
-              <h1 className="text-xl font-bold tracking-tight text-white">OpenClaw</h1>
+              <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">OpenClaw</h1>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-gray-300">
-                <div className="w-8 h-8 rounded-full border border-gray-700 bg-gray-800 overflow-hidden">
+              <ThemeToggle />
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <div className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 overflow-hidden">
                   <img src="/avatars/perfil.png" alt="Perfil" className="w-full h-full object-cover text-[10px]" />
                 </div>
                 <span className="hidden sm:inline font-mono">evanildobarros</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 title="Sair"
               >
                 <LogOut className="w-5 h-5" />
