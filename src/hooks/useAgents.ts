@@ -3,11 +3,11 @@ import { collection, query, where, onSnapshot, setDoc, doc, serverTimestamp } fr
 import { db } from '../firebase';
 
 const DEFAULT_AGENTS = [
-  { id: 'fred', name: 'Fred', role: 'Main Agent' },
-  { id: 'vitor', name: 'Vitor', role: 'Worker Agent' },
+  { id: 'fred', name: 'Fred', role: 'Mestre Orquestrador e Mentor Pessoal' },
+  { id: 'vitor', name: 'Vitor', role: 'Estrategista de Docência e Autoridade Acadêmica' },
   { id: 'kewin', name: 'Kewin', role: 'Worker Agent' },
-  { id: 'mary', name: 'Mary', role: 'Worker Agent' },
-  { id: 'tamy', name: 'Tamy', role: 'Worker Agent' },
+  { id: 'mary', name: 'TMary', role: 'Dev Full Time Pessoal' },
+  { id: 'tamy', name: 'Tamy', role: 'Consultora de Finanças Pessoais & Parceira de Negócios' },
 ];
 
 export const useAgents = (userId: string | undefined) => {

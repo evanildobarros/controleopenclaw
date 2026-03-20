@@ -264,8 +264,6 @@ function App() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {agents.map(agent => {
-                  const displayName = agent.id.includes('fred') ? 'Fred' : agent.name;
-                  const displayRole = agent.id.includes('fred') ? 'Mestre Orquestrador e Mentor Pessoal' : agent.role;
                   return (
                     <div 
                       key={agent.id} 
@@ -278,9 +276,7 @@ function App() {
                         <UserIcon className="w-10 h-10 text-emerald-primary/50" />
                       </div>
                       
-                      <h3 className="text-xl font-semibold text-white mb-1">
-                        ID: {agent.id} | NAME: {agent.name}
-                      </h3>
+                      <h3 className="text-xl font-semibold text-white mb-1">{agent.name}</h3>
                       <p className="text-sm text-emerald-primary font-mono mb-4">{agent.role}</p>
                       
                       <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
