@@ -209,8 +209,8 @@ function App() {
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <div className="flex items-center gap-2 text-sm text-text-muted">
-              <div className="w-8 h-8 rounded-full border border-white/5 bg-surface-base flex items-center justify-center">
-                <UserIcon className="w-4 h-4 text-emerald-primary" />
+              <div className="w-8 h-8 rounded-full border border-white/5 bg-surface-base overflow-hidden">
+                <img src="/avatars/perfil.png" alt="Perfil" className="w-full h-full object-cover" />
               </div>
               <span className="hidden sm:inline font-mono">evanildobarros</span>
             </div>
@@ -262,7 +262,11 @@ function App() {
                      {agents.map(agent => (
                        <li key={agent.id} className="bg-surface-base border border-white/5 p-8 rounded-3xl hover:border-emerald-primary/30 transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.05)]">
                          <div className="flex items-center gap-x-6">
-                           <img className="size-16 rounded-full border border-white/10" src={`https://ui-avatars.com/api/?name=${agent.name}&background=04b983&color=fff`} alt="" />
+                           <img 
+                             className="size-16 rounded-full border border-white/10" 
+                             src={agent.avatar || `https://ui-avatars.com/api/?name=${agent.name}&background=04b983&color=fff`} 
+                             alt={agent.name} 
+                           />
                            <div>
                              <p className="text-xs font-bold text-emerald-primary uppercase tracking-widest">{agent.name}</p>
                              <h3 className="text-sm font-semibold text-white leading-tight mt-1">{agent.role}</h3>
