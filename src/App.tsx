@@ -228,82 +228,62 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Agents Grid */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold tracking-tight text-white">Meus Agentes</h2>
-              <div className="text-sm font-mono text-text-muted">
-                {agentsLoading ? '...' : `${agents.length} ONLINE`}
-              </div>
-            </div>
-
-            {/* Nova seção para estatísticas resumidas dos agentes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
-                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Total Ativos</p>
-                    <p className="text-2xl font-semibold text-white">{agents.length}</p>
-                </div>
-                <div className="bg-surface-base border border-emerald-primary/20 p-4 rounded-xl shadow-[0_0_15px_rgba(4,185,131,0.05)]">
-                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Em Execução</p>
-                    <p className="text-2xl font-semibold text-emerald-primary">{agents.filter(a => a.status === 'working').length}</p>
-                </div>
-                <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
-                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Ociosos</p>
-                    <p className="text-2xl font-semibold text-zinc-500">{agents.filter(a => a.status === 'idle').length}</p>
-                </div>
-            </div>
-
-            {agentsLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="h-64 bg-surface-base rounded-2xl border border-white/5 animate-pulse" />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {agents.map(agent => {
-                  console.log('AGENT OBJECT:', agent);
-                  return (
-                    <div 
-                      key={agent.id} 
-                      className="group flex flex-col items-center text-center p-6 bg-surface-base border border-white/5 rounded-3xl hover:border-emerald-primary/30 transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.05)]"
-                    >
-                      <div className={`relative w-24 h-24 rounded-full bg-black/50 border border-white/10 flex items-center justify-center mb-6 overflow-hidden ${agent.status === 'working' ? 'ring-2 ring-emerald-primary/30' : ''}`}>
-                         {agent.status === 'working' && (
-                            <span className="absolute inset-0 bg-emerald-primary/10 animate-pulse"></span>
-                          )}
-                        <UserIcon className="w-10 h-10 text-emerald-primary/50" />
-                      </div>
-                      
-                      <h3 className="text-xl font-semibold text-white mb-1">
-                        {agent.id.includes('fred') ? 'Fred' : (agent.name || 'Sem nome')}
-                      </h3>
-                      <p className="text-sm text-emerald-primary font-mono mb-4">
-                        {agent.id.includes('fred') ? 'Mestre Orquestrador e Mentor Pessoal' : (agent.role || 'Sem papel')}
-                      </p>
-                      
-                      <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
-                        <span className={`relative flex h-2 w-2 rounded-full ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-600'}`}>
-                           {agent.status === 'working' && (
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-primary opacity-75"></span>
-                          )}
-                        </span>
-                        <span className="text-xs uppercase tracking-wider font-mono text-text-muted">{agent.status}</span>
-                      </div>
-
-                      <button
-                        onClick={() => setSelectedAgent(agent)}
-                        disabled={agent.status === 'working'}
-                        className="mt-auto w-full text-sm font-medium bg-white/5 hover:bg-emerald-primary/10 hover:text-emerald-primary disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-2"
-                      >
-                        <Plus className="w-4 h-4" />
-                        Atribuir Tarefa
-                      </button>
+          {/* Agents Section */}
+          <div className="lg:col-span-2">
+             <div className="py-4">
+               <div className="max-w-7xl">
+                 <div className="mb-8">
+                   <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Meet our Agents</h2>
+                   <p className="mt-4 text-lg text-text-muted">Dynamic agents dedicated to orchestrating results.</p>
+                 </div>
+                 
+                 {/* Stats Section */}
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
+                        <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Total Ativos</p>
+                        <p className="text-2xl font-semibold text-white">{agents.length}</p>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                    <div className="bg-surface-base border border-emerald-primary/20 p-4 rounded-xl shadow-[0_0_15px_rgba(4,185,131,0.05)]">
+                        <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Em Execução</p>
+                        <p className="text-2xl font-semibold text-emerald-primary">{agents.filter(a => a.status === 'working').length}</p>
+                    </div>
+                    <div className="bg-surface-base border border-white/5 p-4 rounded-xl">
+                        <p className="text-xs text-text-muted uppercase tracking-wider mb-1">Ociosos</p>
+                        <p className="text-2xl font-semibold text-zinc-500">{agents.filter(a => a.status === 'idle').length}</p>
+                    </div>
+                </div>
+
+                 {agentsLoading ? (
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                     {[1, 2, 3].map(i => <div key={i} className="h-64 bg-surface-base rounded-2xl border border-white/5 animate-pulse" />)}
+                   </div>
+                 ) : (
+                   <ul role="list" className="grid gap-8 sm:grid-cols-2">
+                     {agents.map(agent => (
+                       <li key={agent.id} className="bg-surface-base border border-white/5 p-8 rounded-3xl hover:border-emerald-primary/30 transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.05)]">
+                         <div className="flex items-center gap-x-6">
+                           <img className="size-16 rounded-full border border-white/10" src={`https://ui-avatars.com/api/?name=${agent.name}&background=04b983&color=fff`} alt="" />
+                           <div>
+                             <h3 className="text-lg font-semibold text-white">{agent.name}</h3>
+                             <p className="text-sm font-medium text-emerald-primary">{agent.role}</p>
+                           </div>
+                         </div>
+                         <div className="mt-6">
+                           <button
+                             onClick={() => setSelectedAgent(agent)}
+                             disabled={agent.status === 'working'}
+                             className="w-full text-sm font-medium bg-white/5 hover:bg-emerald-primary/10 hover:text-emerald-primary disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-2"
+                           >
+                             <Plus className="w-4 h-4" />
+                             Atribuir Tarefa
+                           </button>
+                         </div>
+                       </li>
+                     ))}
+                   </ul>
+                 )}
+               </div>
+             </div>
           </div>
 
           {/* Task Feed */}
