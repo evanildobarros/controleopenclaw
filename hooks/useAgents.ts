@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../src/lib/supabase';
 
-interface Agent {
+export interface Agent {
   id: string;
   name: string;
   role: string;
   status: 'idle' | 'working' | 'error';
   currentTask: string | null;
   updatedAt: string;
+  localPath: string; // MAPEADO PARA A NOVA REQUISIÇÃO
+  avatar?: string;
 }
+
+const LOCAL_PATHS: Record<string, string> = {
+  'Fred': '/home/evanildobarros/.openclaw',
+  'Mary': '/home/evanildobarros/.openclaw-mary',
+  'Tamy': '/home/evanildobarros/.openclaw-tamy',
+  'Kewin': '/home/evanildobarros/.openclaw-kewin',
+  'Vitor': '/home/evanildobarros/.openclaw-vitor'
+};
 
 export const useAgents = (ownerId: string | undefined) => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -30,15 +40,18 @@ export const useAgents = (ownerId: string | undefined) => {
       
       if (error) {
         console.error("Erro ao buscar agentes:", error);
-      } else {
-        setAgents(data as any[]);
+      } else if (data) {
+        const mappedData = data.map((a: any) => ({
+             ...a,
+             localPath: LOCAL_PATHS[a.name] || `/home/evanildobarros/.openclaw-${a.name.toLowerCase()}`
+        }));
+        setAgents(mappedData);
       }
       setLoading(false);
     };
 
     fetchAgents();
 
-    // Inscrição em tempo real para mudanças nos agentes deste proprietário
     const channel = supabase
       .channel(`agents-${ownerId}`)
       .on(
@@ -46,12 +59,10 @@ export const useAgents = (ownerId: string | undefined) => {
         { 
           event: '*', 
           schema: 'public', 
-          table: 'agents', 
-          filter: `owner_id=eq.${ownerId}` 
+          table: 'agents'
         }, 
         (payload) => {
-          console.log('Mudança detectada no Supabase:', payload);
-          fetchAgents(); // Recarregar lista completa para simplificar o estado
+          fetchAgents();
         }
       )
       .subscribe();

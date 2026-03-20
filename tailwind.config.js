@@ -11,19 +11,15 @@ module.exports = {
         sans: ['Roboto', 'sans-serif'],
       },
       colors: {
-        // Light Command Palette (Based on User request: All fonts MUST be black)
         'emerald-primary': '#04b983',
-        'emerald-glow': 'rgba(4, 185, 131, 0.1)',
-        'bg-base': '#ffffff', 
-        'surface-base': '#fafafa',
-        'surface-elevated': '#f0f0f0',
-        'text-primary': '#000000',
-        'text-muted': '#000000',
-        'danger-red': '#cc0000',
+        'bg-base': '#0a0a0a',
+        'bg-dark': '#121212',
+        'surface-base': '#181818',
+        'surface-elevated': '#242424',
+        'text-primary': '#ffffff',
+        'text-muted': '#a1a1aa',
+        'danger-red': '#ef4444',
       },
-      animation: {
-        'spin-slow': 'spin 3s linear infinite',
-      }
     },
   },
   plugins: [],
