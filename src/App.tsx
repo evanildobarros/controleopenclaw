@@ -277,12 +277,8 @@ function App() {
                       </div>
                       
                       {/* Debug: {JSON.stringify(agent)} */}
-                      <h3 className="text-xl font-semibold text-white mb-1">
-                        NOME: {agent.name || 'N/A'}
-                      </h3>
-                      <p className="text-sm text-emerald-primary font-mono mb-4">
-                        PAPEL: {agent.role || 'N/A'}
-                      </p>
+                      <h3 className="text-xl font-semibold text-white mb-1">{agent.name}</h3>
+                      <p className="text-sm text-emerald-primary font-mono mb-4">{agent.role}</p>
                       
                       <div className="flex items-center gap-2 px-3 py-1 bg-black/40 rounded-full mb-6 border border-white/5">
                         <span className={`relative flex h-2 w-2 rounded-full ${agent.status === 'working' ? 'bg-emerald-primary' : 'bg-zinc-600'}`}>
