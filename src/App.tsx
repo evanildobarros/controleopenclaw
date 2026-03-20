@@ -264,8 +264,8 @@ function App() {
                          <div className="flex items-center gap-x-6">
                            <img className="size-16 rounded-full border border-white/10" src={`https://ui-avatars.com/api/?name=${agent.name}&background=04b983&color=fff`} alt="" />
                            <div>
-                             <h3 className="text-lg font-semibold text-white">{agent.name}</h3>
-                             <p className="text-sm font-medium text-emerald-primary">{agent.role}</p>
+                             <p className="text-xs font-bold text-emerald-primary uppercase tracking-widest">{agent.name}</p>
+                             <h3 className="text-sm font-semibold text-white leading-tight mt-1">{agent.role}</h3>
                            </div>
                          </div>
                          <div className="mt-6">
