@@ -1,28 +1,12 @@
-import { useState, useEffect } from 'react';
-import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
+import { useState } from 'react';
 
-export const useTasks = (userId: string | undefined) => {
-  const [tasks, setTasks] = useState<any[]>([]);
+// Mock de tarefas
+const DEFAULT_TASKS = [
+  { id: '1', agentId: 'fred', description: 'Monitorar métricas de sistema', status: 'completed', createdAt: new Date() },
+  { id: '2', agentId: 'tamy', description: 'Análise de fluxo de caixa', status: 'in-progress', createdAt: new Date() },
+];
 
-  useEffect(() => {
-    if (!userId) {
-      setTasks([]);
-      return;
-    }
-
-    const q = query(
-      collection(db, 'tasks'),
-      where('ownerId', '==', userId),
-      orderBy('createdAt', 'desc')
-    );
-    
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setTasks(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    });
-
-    return () => unsubscribe();
-  }, [userId]);
-
+export const useTasks = (_userId?: string) => {
+  const [tasks] = useState<any[]>(DEFAULT_TASKS);
   return { tasks };
 };

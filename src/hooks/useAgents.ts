@@ -9,8 +9,10 @@ const DEFAULT_AGENTS = [
 ];
 
 export const useAgents = (_userId?: string) => {
-  const [agents] = useState<any[]>(DEFAULT_AGENTS);
+  const [agents, setAgents] = useState<any[]>(DEFAULT_AGENTS);
   const [loading] = useState(false);
 
+  // Since we are mocking everything now (DB not in use), 
+  // just return DEFAULT_AGENTS directly for simplicity.
   return { agents, loading };
 };

@@ -2,8 +2,6 @@ import { Activity, CheckCircle2, CircleDashed, Lock, LogOut, PlayCircle, Plus, U
 import { useEffect, useState } from 'react';
 import { useAgents } from './hooks/useAgents';
 import { useTasks } from './hooks/useTasks';
-// Firebase imports are kept minimal as actual logic is mocked for this context
-// import { collection, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 
 const FIXED_UID = 'evanildo_admin_001';
 const CREDENTIALS = {
