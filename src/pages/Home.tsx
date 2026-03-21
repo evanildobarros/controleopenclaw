@@ -12,7 +12,7 @@ export function Home({ agents, agentsLoading }: HomeProps) {
 
   return (
     <div className="py-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-4xl transition-colors duration-200">Meet our Agents</h2>
           <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 transition-colors duration-200">Dynamic agents dedicated to orchestrating results.</p>
