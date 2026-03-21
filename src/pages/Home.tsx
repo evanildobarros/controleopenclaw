@@ -19,7 +19,7 @@ export function Home({ agents, agentsLoading }: HomeProps) {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-xl shadow-sm dark:shadow-none transition-colors duration-200">
+          <div className="bg-white dark:bg-gray-800 agent-card-border-light dark:agent-card-border-dark p-4 rounded-xl shadow-sm dark:shadow-none transition-colors duration-200">
               <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Total Ativos</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-white">{agents.length}</p>
           </div>
@@ -27,7 +27,7 @@ export function Home({ agents, agentsLoading }: HomeProps) {
               <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Em Execução</p>
               <p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-500">{agents.filter(a => a.status === 'working').length}</p>
           </div>
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-xl shadow-sm dark:shadow-none transition-colors duration-200">
+          <div className="bg-white dark:bg-gray-800 agent-card-border-light dark:agent-card-border-dark p-4 rounded-xl shadow-sm dark:shadow-none transition-colors duration-200">
               <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Ociosos</p>
               <p className="text-2xl font-semibold text-gray-600 dark:text-gray-500">{agents.filter(a => a.status === 'idle').length}</p>
           </div>
@@ -43,7 +43,7 @@ export function Home({ agents, agentsLoading }: HomeProps) {
               <li 
                 key={agent.id} 
                 onClick={() => navigate(`/agent/${agent.id}`)}
-                className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:border-emerald-500/50 cursor-pointer transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.1)] flex flex-col justify-between shadow-sm dark:shadow-none"
+                className="bg-white dark:bg-gray-800 agent-card-border-light dark:agent-card-border-dark p-8 rounded-3xl hover:border-emerald-500/50 cursor-pointer transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.1)] flex flex-col justify-between shadow-sm dark:shadow-none"
               >
                 <div>
                   <div className="flex items-center gap-x-6">

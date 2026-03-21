@@ -59,37 +59,37 @@ function App() {
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Usuário</label>
+              <label className="block text-sm font-medium text-text-muted mb-1">Usuário</label>
               <div className="relative">
-                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  className="w-full bg-surface-base dark:bg-bg-dark border border-white/5 dark:border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-text-primary focus:outline-none focus:border-emerald-primary transition-all"
                   placeholder="Seu usuário"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
+              <label className="block text-sm font-medium text-text-muted mb-1">Senha</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 pl-10 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-all"
+                  className="w-full bg-surface-base dark:bg-bg-dark border border-white/5 dark:border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-text-primary focus:outline-none focus:border-emerald-primary transition-all"
                   placeholder="Sua senha"
                   required
                 />
               </div>
             </div>
-            {loginError && <p className="text-red-500 text-xs text-center">{loginError}</p>}
+            {loginError && <p className="text-danger-red text-xs text-center">{loginError}</p>}
             <button
               type="submit"
-              className="w-full bg-emerald-500 text-white dark:text-gray-900 font-bold py-3 px-4 rounded-xl hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors mt-4"
+              className="w-full bg-emerald-primary text-text-primary dark:text-bg-dark font-bold py-3 px-4 rounded-xl hover:bg-emerald-primary/80 dark:hover:bg-emerald-primary/50 transition-colors mt-4"
             >
               Entrar no Sistema
             </button>

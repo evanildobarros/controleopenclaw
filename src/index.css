@@ -37,7 +37,7 @@
     line-height: 2rem; 
     font-weight: 700; 
     margin-bottom: 1rem; 
-    @apply text-emerald-600 dark:text-emerald-400;
+    @apply text-emerald-primary dark:text-emerald-primary;
 }
 .prose h2 { 
     font-size: 1.25rem; 
@@ -65,3 +65,14 @@
     font-weight: 600; 
     @apply text-gray-900 dark:text-white;
 }
+/* --- NEW: Subtle Border for Agent Cards on Light Mode --- */
+.agent-card-border {
+    @apply border border-gray-200 dark:border-gray-700;
+}
+.agent-card-border-light {
+    @apply border border-gray-200;
+}
+.agent-card-border-dark {
+    @apply border border-gray-700;
+}
+
