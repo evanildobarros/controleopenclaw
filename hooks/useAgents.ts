@@ -20,6 +20,14 @@ const LOCAL_PATHS: Record<string, string> = {
   'Vitor': '/home/evanildobarros/.openclaw-vitor'
 };
 
+const AVATAR_MAP: Record<string, string> = {
+  'Fred': '/avatars/fred.jpg',
+  'Mary': '/avatars/mary.png',
+  'Tamy': '/avatars/tamy.png',
+  'Kewin': '/avatars/kewin.png',
+  'Vitor': '/avatars/vitor.jpg'
+};
+
 export const useAgents = (ownerId: string | undefined) => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +51,8 @@ export const useAgents = (ownerId: string | undefined) => {
       } else if (data) {
         const mappedData = data.map((a: any) => ({
              ...a,
-             localPath: LOCAL_PATHS[a.name] || `/home/evanildobarros/.openclaw-${a.name.toLowerCase()}`
+             localPath: LOCAL_PATHS[a.name] || `/home/evanildobarros/.openclaw-${a.name.toLowerCase()}`,
+             avatar: AVATAR_MAP[a.name] || a.avatar || `https://ui-avatars.com/api/?name=${a.name}&background=04b983&color=fff`
         }));
         setAgents(mappedData);
       }
