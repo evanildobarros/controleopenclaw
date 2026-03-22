@@ -49,8 +49,8 @@ function App() {
 
   if (!isLoggedIn) {
      return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center text-gray-900 dark:text-white p-4 font-sans transition-colors duration-200">
-        <div className="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl dark:shadow-2xl">
+        <div className="min-h-screen bg-gray-50 dark:bg-bg-base flex flex-col items-center justify-center text-gray-900 dark:text-text-primary p-4 font-sans transition-colors duration-200">
+        <div className="max-w-md w-full bg-white dark:bg-surface-base p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl dark:shadow-2xl">
           <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <Activity className="w-8 h-8 text-emerald-500" />
           </div>
@@ -67,7 +67,7 @@ function App() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full bg-surface-base dark:bg-bg-dark border border-white/5 dark:border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-text-primary focus:outline-none focus:border-emerald-primary transition-all"
-                  placeholder="Seu usuário"
+                  placeholder="Usuário (admin ou superagente)"
                   required
                 />
               </div>
