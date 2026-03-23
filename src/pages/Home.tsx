@@ -15,8 +15,8 @@ export function Home({ agents, agentsLoading }: HomeProps) {
     <div className="py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-4xl transition-colors duration-200">Meet our Agents</h2>
-          <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 transition-colors duration-200">Dynamic agents dedicated to orchestrating results.</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-4xl transition-colors duration-200">Conheça nossos Agentes</h2>
+          <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 transition-colors duration-200">Agentes dinâmicos dedicados a orquestrar resultados.</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
