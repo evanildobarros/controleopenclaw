@@ -34,8 +34,9 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
   
   // Mock data for subagents demonstration
   const [subagents, setSubagents] = useState([
-      { id: '1', name: 'ESG Analyst', status: 'running', task: 'GEE Calculation' },
-      { id: '2', name: 'Storyteller', status: 'idle', task: 'README Generation' }
+      { agentId: 'mary', id: '1', name: 'ESG Analyst', status: 'running', task: 'GEE Calculation' },
+      { agentId: 'mary', id: '2', name: 'Storyteller', status: 'idle', task: 'README Generation' },
+      { agentId: 'kewin', id: '3', name: 'Health Monitor', status: 'idle', task: 'Heart Rate Sync' }
   ]);
 
   useEffect(() => {
@@ -196,17 +197,21 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
       {activeTab === 'subagents' && (
         <div className="space-y-4">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Subagentes Ativos</h3>
-          {subagents.map(sub => (
-            <div key={sub.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">{sub.name}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{sub.task}</p>
-                </div>
-                <span className={`px-2 py-1 rounded text-xs ${sub.status === 'running' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}`}>
-                  {sub.status}
-                </span>
-            </div>
-          ))}
+          {subagents.filter(s => s.agentId === agentId).length === 0 ? (
+            <p className="text-gray-500 italic">Nenhum subagente ativo para este agente.</p>
+          ) : (
+            subagents.filter(s => s.agentId === agentId).map(sub => (
+              <div key={sub.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">{sub.name}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{sub.task}</p>
+                  </div>
+                  <span className={`px-2 py-1 rounded text-xs ${sub.status === 'running' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}`}>
+                    {sub.status}
+                  </span>
+              </div>
+            ))
+          )}
         </div>
       )}
 
