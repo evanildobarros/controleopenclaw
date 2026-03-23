@@ -27,9 +27,31 @@ export const getFileContent = async (agentId: string, fileName: string): Promise
   }
 };
 
+export const listSkills = async (agentId: string): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('agent_files')
+      .select('file_name')
+      .eq('agent_id', agentId)
+      .ilike('file_name', 'skills/%');
+
+    if (error || !data) {
+      console.warn(`[File Service] Nenhuma skill encontrada para o agente ${agentId}.`);
+      return [];
+    }
+
+    return data.map(f => f.file_name.replace('skills/', ''));
+  } catch (err) {
+    console.error(`[File Service] Erro ao listar skills:`, err);
+    return [];
+  }
+};
+
+export const getSkillContent = async (agentId: string, skillName: string): Promise<string> => {
+    return await getFileContent(agentId, `skills/${skillName}`);
+};
+
 export const saveFileContent = async (agentId: string, fileName: string, content: string): Promise<void> => {
-  // Conforme sua escolha: O Dashboard na nuvem agora opera apenas em leitura para esses arquivos 
-  // O conteúdo real será empurrado de baixo para cima pelo Script Daemon local do seu Ubuntu.
   alert('Modo Nuvem (Vercel): Edição direta do Brain desativada visando preservar a integridade local.');
   console.log(`[File Service] Save abortado (Modo Read-Only). Arquivo: ${fileName}`);
 };
