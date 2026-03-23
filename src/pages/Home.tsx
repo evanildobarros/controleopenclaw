@@ -1,6 +1,7 @@
 import { Activity, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Agent } from '../../hooks/useAgents';
+import { motion } from 'framer-motion';
 
 interface HomeProps {
   agents: Agent[];
@@ -38,10 +39,18 @@ export function Home({ agents, agentsLoading }: HomeProps) {
             {[1, 2, 3].map(i => <div key={i} className="h-64 bg-gray-100 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 animate-pulse" />)}
           </div>
         ) : (
-          <ul role="list" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.ul 
+            role="list" 
+            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.1 }}
+          >
             {agents.map(agent => (
-              <li 
+              <motion.li 
                 key={agent.id} 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 onClick={() => navigate(`/agent/${agent.id}`)}
                 className="bg-white dark:bg-gray-800 agent-card-border-light dark:agent-card-border-dark p-8 rounded-3xl hover:border-emerald-500/50 cursor-pointer transition-all hover:shadow-[0_0_30px_rgba(4,185,131,0.1)] flex flex-col justify-between shadow-sm dark:shadow-none"
               >
@@ -49,7 +58,7 @@ export function Home({ agents, agentsLoading }: HomeProps) {
                   <div className="flex items-center gap-x-6">
                     <img 
                       className="size-16 rounded-full border border-gray-200 dark:border-gray-600" 
-                      src={agent.avatar || `https://ui-avatars.com/api/?name=${agent.name}&background=04b983&color=fff`} 
+                      src={agent.avatar || `/avatars/perfil.png`} 
                       alt={agent.name} 
                     />
                     <div>
@@ -63,15 +72,17 @@ export function Home({ agents, agentsLoading }: HomeProps) {
                   </div>
                 </div>
                 <div className="mt-6">
-                  <span
+                  <button
+                    onClick={() => navigate(`/agent/${agent.id}`)}
+                    aria-label={`Acessar dashboard do agente ${agent.name}`}
                     className="w-full text-sm font-medium bg-gray-50 hover:bg-emerald-50 dark:bg-gray-700/50 dark:hover:bg-emerald-500/20 hover:text-emerald-600 dark:hover:text-emerald-400 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-xl transition-colors flex items-center justify-center gap-2 border border-gray-100 dark:border-transparent"
                   >
                     Acessar Dashboard
-                  </span>
+                  </button>
                 </div>
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         )}
       </div>
     </div>

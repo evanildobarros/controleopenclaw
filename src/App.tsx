@@ -101,7 +101,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white font-sans transition-colors duration-200 selection:bg-emerald-500/30">
+      <div className="min-h-screen bg-gray-50 dark:bg-bg-base text-gray-900 dark:text-text-primary font-sans transition-colors duration-200 selection:bg-emerald-primary/30">
         <header className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-10 transition-colors duration-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
@@ -38,7 +39,7 @@ async function syncAgentFiles() {
     
     for (const agent of agentsData) {
       const localFolderName = agent.name === 'Fred' ? '.openclaw' : `.openclaw-${agent.name.toLowerCase()}`;
-      const dirPath = path.join('/home/evanildobarros', localFolderName);
+      const dirPath = path.join(os.homedir(), localFolderName);
 
       if (!fs.existsSync(dirPath)) {
         console.warn(`⚠️ [Aviso] Diretório do ${agent.name} não encontrado: ${dirPath}`);
@@ -80,8 +81,12 @@ async function syncAgentFiles() {
   }
 }
 
-// Rodar imediatamente ao iniciar
-syncAgentFiles();
+// Loop assíncrono para rodar a cada 60 segundos
+async function runLoop() {
+  while (true) {
+    await syncAgentFiles();
+    await new Promise(resolve => setTimeout(resolve, 60 * 1000));
+  }
+}
 
-// Configurar Loop para rodar a cada 60 segundos (1 minuto) mantendo o feed da Vercel sempre fresco!
-setInterval(syncAgentFiles, 60 * 1000);
+runLoop();
