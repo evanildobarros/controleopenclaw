@@ -12,7 +12,7 @@ interface AgentDashboardProps {
   fixedUid: string;
 }
 
-type TabMode = 'overview' | 'tasks' | 'brain' | 'workspace';
+type TabMode = 'overview' | 'tasks' | 'brain' | 'workspace' | 'subagents';
 type BrainFile = 'SOUL.md' | 'IDENTITY.md' | 'MEMORY.md';
 
 export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
@@ -31,6 +31,12 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
   const logsRef = useRef<HTMLDivElement>(null);
   
   const [taskDescription, setTaskDescription] = useState('');
+  
+  // Mock data for subagents demonstration
+  const [subagents, setSubagents] = useState([
+      { id: '1', name: 'ESG Analyst', status: 'running', task: 'GEE Calculation' },
+      { id: '2', name: 'Storyteller', status: 'idle', task: 'README Generation' }
+  ]);
 
   useEffect(() => {
     if (agent && activeTab === 'brain') {
@@ -161,7 +167,7 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
 
       {/* Tabs */}
       <div className="flex gap-4 border-b border-gray-200 dark:border-gray-800 mb-6 overflow-x-auto custom-scrollbar pb-2">
-        {(['overview', 'tasks', 'brain', 'workspace'] as TabMode[]).map(tab => (
+        {(['overview', 'tasks', 'subagents', 'brain', 'workspace'] as TabMode[]).map(tab => (
            <button 
              key={tab}
              onClick={() => setActiveTab(tab)}
@@ -184,6 +190,23 @@ export function AgentDashboard({ agents, fixedUid }: AgentDashboardProps) {
                Ele opera a partir de diretórios locais mapeados de forma assíncrona.
              </p>
            </div>
+        </div>
+      )}
+
+      {activeTab === 'subagents' && (
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Subagentes Ativos</h3>
+          {subagents.map(sub => (
+            <div key={sub.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                <div>
+                  <p className="font-semibold text-gray-900 dark:text-white">{sub.name}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{sub.task}</p>
+                </div>
+                <span className={`px-2 py-1 rounded text-xs ${sub.status === 'running' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}`}>
+                  {sub.status}
+                </span>
+            </div>
+          ))}
         </div>
       )}
 
