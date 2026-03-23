@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+@theme {
+  --color-emerald-primary: #04b983;
+  --color-bg-base: #0a0a0a;
+  --color-bg-dark: #121212;
+  --color-surface-base: #181818;
+  --color-surface-elevated: #242424;
+  --color-text-primary: #e4e4e7;
+  --color-text-muted: #a1a1aa;
+  --color-danger-red: #ef4444;
+  --color-surface-light: #ffffff;
+  --color-happiness-1: #04b983;
+  --color-happiness-2: #03a976;
+  --color-blue-400: #60a5fa;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Estilos customizados para scrollbar Dark/Light Mode */
