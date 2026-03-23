@@ -38,6 +38,14 @@ export function Home({ agents, agentsLoading }: HomeProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {[1, 2, 3].map(i => <div key={i} className="h-64 bg-gray-100 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 animate-pulse" />)}
           </div>
+        ) : agents.length === 0 ? (
+          <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/50 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Nenhum agente configurado</h3>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Configure seu primeiro agente para começar a orquestrar tarefas.</p>
+            <button className="mt-6 px-6 py-2 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-600 transition-colors">
+              Configurar Agente
+            </button>
+          </div>
         ) : (
           <motion.ul 
             role="list" 
